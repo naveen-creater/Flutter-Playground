@@ -31,15 +31,52 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+  AppLifecycleState? appLifecycleState;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+    print('init call');
+  }
+
+  @override
+  void didUpdateWidget(covariant MyHomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // setState(() {});
+
+    print('Widget old:  ${oldWidget}');
+    print('didUpdateWidget call');
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    setState(() {
+      appLifecycleState = state;
+    });
+    print(state.toString());
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    WidgetsBinding.instance?.removeObserver(this);
+    print('dispose call');
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('Build method call!!');
     return Scaffold(
       appBar: AppBar(
         title: const Text('LifeCycle Sample'),
       ),
       body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -54,10 +91,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  child: const Text(''),
+                  child: Text(
+                    appLifecycleState.toString(),
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                 )
               ],
             ),
