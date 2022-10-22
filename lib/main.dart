@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Application Sate demo',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
@@ -33,10 +33,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   AppLifecycleState? appLifecycleState;
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     print('init call');
   }
 
@@ -62,9 +63,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     print('dispose call');
   }
 
@@ -95,7 +95,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
               children: <Widget>[
                 Container(
                   child: Text(
-                    appLifecycleState.toString(),
+                    appLifecycleState == null
+                        ? "Check The Application state"
+                        : appLifecycleState.toString(),
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 )
