@@ -1,109 +1,68 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => MyTestApp();
 }
 
-/*
-* We going to demo play the Application lifecycle and state lifecycle
-* done by Naveenkumar k
-* */
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
+class MyTestApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Application Sate demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "My first App!",
+            style: TextStyle(color: Colors.deepOrange),
+            textAlign: TextAlign.end,
+            textWidthBasis: TextWidthBasis.longestLine,
+          ),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const SizedBox(
+                height: 12,
+              ),
+              TextFormField(
+                textCapitalization: TextCapitalization.words,
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(
+                        /*borderSide: BorderSide(
+                            color: const Color(0xffff4141),
+                            width: 2.0,
+                            style: BorderStyle.solid)*/
+                        ),
+                    filled: true,
+                    icon: Icon(Icons.person),
+                    hintText: "please enter your name",
+                    labelText: "Name*",
+                    prefixText: "Name: "),
+                onSaved: (String? value) {},
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              TextFormField(
+                textCapitalization: TextCapitalization.words,
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    filled: true,
+                    icon: Icon(Icons.mail),
+                    hintText: "please enter your Mail",
+                    labelText: "Mail Id*"),
+                showCursor: true,
+              ),
+            ],
+          ),
+        ),
       ),
-      home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
-  AppLifecycleState? appLifecycleState;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    print('init call');
-  }
-
-  @override
-  void didUpdateWidget(covariant MyHomePage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    // setState(() {});
-
-    print('Widget old:  ${oldWidget}');
-    print('didUpdateWidget call');
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
-    super.didChangeAppLifecycleState(state);
-    setState(() {
-      appLifecycleState = state;
-    });
-    print(state.toString());
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
-    print('dispose call');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print('Build method call!!');
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('LifeCycle Sample'),
-      ),
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: const Text(
-                    'Welcome to Application LifeCycle class!!',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  child: Text(
-                    appLifecycleState == null
-                        ? "Check The Application state"
-                        : appLifecycleState.toString(),
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                )
-              ],
-            ),
-          ]),
     );
   }
 }
