@@ -9,60 +9,94 @@ class MyApp extends StatefulWidget {
 }
 
 class MyTestApp extends State<MyApp> {
+  var questions = [
+    'whats your fav color',
+    'whats your fav bike',
+    'whats your Name!',
+  ];
+
+  var qs = "Name";
+  var aff = 0;
+
+  void answersQuesion() {
+    setState(() {
+      aff++;
+      qs = "clicked Name $aff";
+    });
+
+    Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "My first App!",
-            style: TextStyle(color: Colors.deepOrange),
-            textAlign: TextAlign.end,
-            textWidthBasis: TextWidthBasis.longestLine,
+          appBar: AppBar(
+            title: Text(
+              "Test App",
+            ),
           ),
-        ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const SizedBox(
-                height: 12,
-              ),
-              TextFormField(
-                textCapitalization: TextCapitalization.words,
-                decoration: InputDecoration(
-                    border: UnderlineInputBorder(
-                        /*borderSide: BorderSide(
-                            color: const Color(0xffff4141),
-                            width: 2.0,
-                            style: BorderStyle.solid)*/
-                        ),
-                    filled: true,
-                    icon: Icon(Icons.person),
-                    hintText: "please enter your name",
-                    labelText: "Name*",
-                    prefixText: "Name: "),
-                onSaved: (String? value) {},
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              TextFormField(
-                textCapitalization: TextCapitalization.words,
-                decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    filled: true,
-                    icon: Icon(Icons.mail),
-                    hintText: "please enter your Mail",
-                    labelText: "Mail Id*"),
-                showCursor: true,
-              ),
-            ],
-          ),
-        ),
-      ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Container(
+                  // width: ,
+                  child: Text(
+                    "Quesion 1",
+                    style: TextStyle(
+                      color: Colors.purple,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  onPressed: answersQuesion,
+                  child: Text("Answer 1"),
+                ),
+                ElevatedButton(
+                  onPressed: answersQuesion,
+                  child: Text("Answer 2"),
+                ),
+                ElevatedButton(
+                  onPressed: answersQuesion,
+                  child: Text(qs),
+                ),
+                Container(
+                  /* constraints: BoxConstraints.expand(
+                    height: Theme.of(context).textTheme.headline4!.fontSize! * 1.1 + 200.0,
+                  ),*/
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.blue,
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationZ(0.2),
+                  child: const Text(
+                    'Container box!!',
+                    style: TextStyle(
+                      color: Colors.deepOrange,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }
