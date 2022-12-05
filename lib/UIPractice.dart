@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(UIPractice());
@@ -9,7 +11,7 @@ class UIPractice extends StatefulWidget {
   }
 }
 
-Widget container(double width, double height, Color color) {
+Widget container(double width, double height, {Color color = Colors.grey}) {
   return Container(
     width: width,
     height: height,
@@ -32,9 +34,13 @@ Widget row() {
     crossAxisAlignment: CrossAxisAlignment.end, //
     mainAxisSize: MainAxisSize.min,
     children: [
-      container(50, 50, Colors.orange),
-      container(50, 50, Colors.blue),
-      container(50, 50, Colors.lightGreenAccent),
+      container(
+        50,
+        50,
+        color: Colors.orange,
+      ),
+      container(50, 50, color: Colors.blue),
+      container(50, 50, color: Colors.lightGreenAccent),
       Text(
         "data",
       ),
@@ -48,9 +54,9 @@ Widget column() {
     mainAxisSize: MainAxisSize.max,
     crossAxisAlignment: CrossAxisAlignment.end,
     children: [
-      container(100, 50, Colors.orange),
-      container(100, 50, Colors.blue),
-      container(100, 50, Colors.lightGreenAccent),
+      container(100, 50, color: Colors.orange),
+      container(100, 50, color: Colors.blue),
+      container(100, 50, color: Colors.lightGreenAccent),
       Text(
         "data",
       ),
@@ -60,14 +66,14 @@ Widget column() {
 
 Widget getCenter() {
   return Center(
-    child: container(200, 200, Colors.yellowAccent),
+    child: container(200, 200, color: Colors.yellowAccent),
   );
 }
 
 Widget align() {
   return Align(
     alignment: Alignment.topRight,
-    child: container(150, 150, Colors.cyanAccent),
+    child: container(150, 150, color: Colors.cyanAccent),
   );
 }
 
@@ -80,48 +86,50 @@ Widget padding() {
       width: 200,
       child: Padding(
         padding: EdgeInsets.all(40),
-        child: container(200, 200, Colors.green),
+        child: container(200, 200, color: Colors.green),
       ),
     ),
   );
 }
 
 Widget sizeBox() {
-
   return SizedBox(
     height: 100,
     width: 200,
     child: Card(
       color: Colors.brown,
       child: Center(
-        child: Text("center Text!", style: TextStyle(backgroundColor: Colors.deepOrange),),
+        child: Text(
+          "center Text!",
+          style: TextStyle(backgroundColor: Colors.deepOrange),
+        ),
       ),
     ),
   );
 }
 
-Widget expanded(){
+Widget expanded() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     mainAxisSize: MainAxisSize.max,
     children: <Widget>[
       Expanded(
-        child: container(100, 200, Colors.cyanAccent),
+        child: container(100, 200, color: Colors.cyanAccent),
         flex: 1,
       ),
       Expanded(
-        child: container(100, 200, Colors.black87),
+        child: container(100, 200, color: Colors.black87),
         flex: 3,
       ),
       Expanded(
-        child: container(100, 200, Colors.amberAccent),
+        child: container(100, 200, color: Colors.amberAccent),
         flex: 4,
       ),
     ],
   );
 }
 
-Widget flexible(){
+Widget flexible() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.start,
     mainAxisSize: MainAxisSize.max,
@@ -146,6 +154,123 @@ Widget flexible(){
   );
 }
 
+Widget constraint() {
+  return ConstrainedBox(
+      // constraints: BoxConstraints.expand(height: 100),
+      constraints: BoxConstraints.loose(Size(125, 100)),
+      child: Container(
+        color: Colors.orange,
+        child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'Box Constraint',
+              style: TextStyle(color: Colors.white),
+            )),
+      ));
+}
+
+Widget stack() {
+  return Center(
+    child: Stack(
+      alignment: AlignmentDirectional.center,
+      children: <Widget>[
+        container(
+          200,
+          200,
+        ),
+        container(
+          100,
+          100,
+          color: Colors.indigoAccent,
+        )
+      ],
+    ),
+  );
+}
+
+Widget stackExample() {
+  return Container(
+    padding: EdgeInsets.all(14),
+    child: CircleAvatar(
+      child: Stack(
+        alignment: AlignmentDirectional.bottomEnd,
+        children: <Widget>[
+          Image.asset(
+            "assets/ic_launcher.png",
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 30, 30),
+            child: Text("Android"),
+          ),
+        ],
+      ),
+      backgroundColor: Colors.brown,
+      radius: 100,
+    ),
+  );
+}
+
+Widget buttons() {
+  return Align(
+    alignment: Alignment.bottomCenter,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        MaterialButton(
+          onPressed: () {},
+          shape: const StadiumBorder(),
+          textColor: Colors.black,
+          color: Colors.blue[300],
+          splashColor: Colors.lightGreenAccent,
+          disabledColor: Colors.grey,
+          disabledTextColor: Colors.white,
+          child: Text('Login'),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        MaterialButton(
+          onPressed: () {},
+          onLongPress: () {},
+          // shape: const StadiumBorder(),
+          // shape: const StadiumBorder(),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          textColor: Colors.black,
+          color: Colors.blue[300],
+          splashColor: Colors.lightGreenAccent,
+          disabledColor: Colors.grey,
+          disabledTextColor: Colors.white,
+          padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+          child: Text('Sign Up'),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        MaterialButton(
+          onPressed: () {},
+          onLongPress: () {},
+          // shape: const StadiumBorder(),
+          shape: const CircleBorder(),
+          textColor: Colors.black,
+          color: Colors.blue[300],
+          splashColor: Colors.lightGreenAccent,
+          disabledColor: Colors.grey,
+          disabledTextColor: Colors.white,
+          // padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+          child: Text('ok'),
+        ),
+        SizedBox(
+          height: 60,
+        )
+      ],
+    ),
+  );
+}
+
 
 
 class UIPracticeStae extends State<UIPractice> {
@@ -156,7 +281,7 @@ class UIPracticeStae extends State<UIPractice> {
         appBar: AppBar(
           title: Text("UI Practice!"),
         ),
-        body: flexible(),
+        body: buttons(),
       ),
     );
   }
