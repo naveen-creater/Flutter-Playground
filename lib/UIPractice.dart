@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_learn/WatchFace/WatchFace.dart';
+import 'WatchFace/Face.dart';
 
 void main() => runApp(UIPractice());
 
@@ -271,8 +273,6 @@ Widget buttons() {
   );
 }
 
-
-
 class UIPracticeStae extends State<UIPractice> {
   @override
   Widget build(BuildContext context) {
@@ -281,7 +281,7 @@ class UIPracticeStae extends State<UIPractice> {
         appBar: AppBar(
           title: Text("UI Practice!"),
         ),
-        body: buttons(),
+        body: WatchFace(),
       ),
     );
   }
